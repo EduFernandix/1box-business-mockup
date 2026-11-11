@@ -13,7 +13,7 @@
   let mineArr = []; try { mineArr = JSON.parse(store.get(LS_MINE) || '[]'); } catch (_) {}
   const mine = new Set(Array.isArray(mineArr) ? mineArr : []);
   const saveMine = () => store.set(LS_MINE, JSON.stringify([...mine]));
-  let comments = {}; let showResolved = false; let openId = null; let pop = null;
+  let comments = {}; let showResolved = false; let openId = null; let pop = null; const pins = new Map(); let lastListSig = '';
 
   const h = (tag, attrs, ...kids) => { const el = document.createElement(tag); for (const [k, v] of Object.entries(attrs || {})) { if (k === 'class') el.className = v; else if (k === 'text') el.textContent = v; else if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else if (v !== false && v != null) el.setAttribute(k, v === true ? '' : v); } for (const c of kids) if (c != null) el.append(c); return el; };
   const ICON_C = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>';
@@ -41,9 +41,26 @@
 
   // ---------- sidebar ----------
   const list = h('div', { class: 'cmx-list' });
+  // free (page-level) comment: not tied to a spot on the page
+  const gIdn = identity();
+  const gText = h('textarea', { placeholder: 'Comment on this page as a whole…', maxlength: '2000', 'aria-label': 'General comment' });
+  const gPost = h('button', { type: 'submit', class: 'cmx-btn pri', text: 'Post' });
+  const gForm = h('form', { class: 'cmx-form cmx-gform' }, gIdn.slot, gText, h('div', { class: 'cmx-row' }, gPost));
+  let gBusy = false;
+  gForm.addEventListener('submit', async (e) => {
+    e.preventDefault(); if (gBusy) return;
+    const t = gText.value.trim(); if (!t) return gText.focus();
+    const author = gIdn.read(); if (!author) return;
+    gBusy = true; gPost.disabled = true;
+    try { const r = await api('POST', '/api/comment', { page: PAGE, general: true, text: t, author, token }); mine.add(r.id); saveMine(); comments[r.id] = r.comment; gText.value = ''; render(); list.scrollTop = list.scrollHeight; }
+    catch (err) { toast('Could not save: ' + err.message); }
+    gBusy = false; gPost.disabled = false;
+  });
+  gForm.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); gForm.requestSubmit(); } });
   const resolvedBox = h('input', { type: 'checkbox', onchange: (e) => { showResolved = e.target.checked; render(); } });
   const side = h('aside', { class: 'cmx-side notranslate', translate: 'no', 'aria-label': 'Comments' },
     h('div', { class: 'cmx-side-h' }, h('b', { text: 'Comments' }), h('button', { type: 'button', class: 'cmx-x', 'aria-label': 'Close', text: '✕', onclick: () => side.classList.remove('open') })),
+    gForm,
     h('div', { class: 'cmx-side-f' }, h('label', {}, resolvedBox, 'Show resolved')),
     list);
   document.body.append(side);
@@ -62,6 +79,11 @@
     }
     if (!parts.length) return '';
     return (rooted ? '' : 'body > ') + parts.join(' > ');
+  }
+  function threadPos(c) {
+    if (c.anchor) return where(c.anchor);
+    const narrow = innerWidth < 760;
+    return { x: scrollX + (narrow ? 0 : Math.max(0, innerWidth - 360 - 340)), y: scrollY + 90 };
   }
   function where(a) {
     a = a || {};
@@ -132,7 +154,7 @@
     else showInput();
     return {
       slot,
-      read() { const v = (name.isConnected ? name.value : store.get(LS_NAME)).trim().slice(0, 60); if (!v) { showInput(); name.focus(); return null; } store.set(LS_NAME, v); return v; },
+      read() { const v = ((name.isConnected && name.value.trim()) || store.get(LS_NAME)).trim().slice(0, 60); if (!v) { showInput(); name.focus(); return null; } store.set(LS_NAME, v); return v; },
       first(text) { return name.isConnected ? name : text; },
     };
   }
@@ -186,10 +208,10 @@
       try { await api('POST', '/api/comment/' + id + '/resolve', { resolved: !c.resolved, by: store.get(LS_NAME) }); if (comments[id]) comments[id].resolved = !c.resolved; closePop(); render(); }
       catch (err) { toast('Could not save: ' + err.message); } } });
     pop = h('div', { class: 'cmx-pop notranslate', translate: 'no', role: 'dialog', 'aria-label': 'Comment thread' },
-      h('div', { class: 'cmx-pop-h' }, h('span', { text: '#' + (c.n || '') + (c.resolved ? ' · resolved' : '') }), h('span', {}, resolve, ' ', h('button', { type: 'button', class: 'cmx-x', 'aria-label': 'Close', text: '✕', onclick: closePop }))),
+      h('div', { class: 'cmx-pop-h' }, h('span', { text: '#' + (c.n || '') + (c.anchor ? '' : ' · general') + (c.resolved ? ' · resolved' : '') }), h('span', {}, resolve, ' ', h('button', { type: 'button', class: 'cmx-x', 'aria-label': 'Close', text: '✕', onclick: closePop }))),
       msgs, form);
     pop.dataset.sig = sigOf(id);
-    const p = where(c.anchor); place(pop, p.x, p.y); msgs.scrollTop = msgs.scrollHeight;
+    const p = threadPos(c); place(pop, p.x, p.y); msgs.scrollTop = msgs.scrollHeight;
     if (keep) { text.value = keep.draft || ''; if (keep.focused) text.focus({ preventScroll: true }); }
   }
   async function del(id) {
@@ -203,7 +225,7 @@
   }
   // click outside closes the popover — unless there is unsent text in it
   document.addEventListener('mousedown', (e) => {
-    if (!pop || pop.contains(e.target) || (e.target.closest && e.target.closest('.cmx-pin,.cmx-item,.cmx-bar'))) return;
+    if (!pop || pop.contains(e.target) || (e.target.closest && e.target.closest('.cmx-pin,.cmx-item,.cmx-bar,.cmx-side'))) return;
     const ta = pop.querySelector('textarea'); if (ta && ta.value.trim()) return;
     closePop();
   });
@@ -215,29 +237,44 @@
   function render() {
     const ts = threads(); const open = ts.filter(([, c]) => !c.resolved);
     count.textContent = String(open.length);
-    layer.textContent = '';
+    // update pins in place (never rebuild them: a click landing during a rebuild would be lost)
+    const keep = new Set();
     for (const [id, c] of ts) {
+      if (!c.anchor) continue;
       if (c.resolved && !showResolved && openId !== id) continue;
+      keep.add(id);
+      let pin = pins.get(id);
+      if (!pin) { pin = h('button', { type: 'button', 'data-id': id, onclick: (e) => { e.stopPropagation(); openThread(id); } }); pins.set(id, pin); layer.append(pin); }
+      const cls = 'cmx-pin' + (c.resolved ? ' resolved' : '') + (openId === id ? ' active' : '');
+      if (pin.className !== cls) pin.className = cls;
+      if (pin.textContent !== String(c.n)) pin.textContent = String(c.n);
+      pin.setAttribute('aria-label', 'Comment ' + c.n + ' by ' + c.author);
       const p = where(c.anchor);
-      const pin = h('button', { type: 'button', class: 'cmx-pin' + (c.resolved ? ' resolved' : '') + (openId === id ? ' active' : ''), 'data-id': id, 'aria-label': 'Comment ' + c.n + ' by ' + c.author, text: String(c.n), onclick: (e) => { e.stopPropagation(); openThread(id); } });
-      pin.style.left = Math.max(0, Math.min(p.x, document.documentElement.scrollWidth - 32)) + 'px'; pin.style.top = Math.max(32, p.y) + 'px'; layer.append(pin);
+      const left = Math.max(0, Math.min(p.x, document.documentElement.scrollWidth - 32)) + 'px', top = Math.max(32, p.y) + 'px';
+      if (pin.style.left !== left) pin.style.left = left;
+      if (pin.style.top !== top) pin.style.top = top;
     }
+    for (const [id, pin] of pins) if (!keep.has(id)) { pin.remove(); pins.delete(id); }
+    const listSig = JSON.stringify([showResolved, ts.map(([id, c]) => [id, c.n, c.resolved, c.text, c.author, ago(c.createdAt), repliesOf(id).length])]);
+    if (listSig === lastListSig) return;
+    lastListSig = listSig;
     list.textContent = '';
     const shown = ts.filter(([, c]) => showResolved || !c.resolved); const nres = ts.length - open.length;
-    if (!shown.length) list.append(h('div', { class: 'cmx-empty', text: ts.length ? 'No open comments. ' + nres + ' resolved — tick “Show resolved” to see them.' : 'No comments on this page yet. Press “comment” in the bar and click anywhere on the page.' }));
+    if (!shown.length) list.append(h('div', { class: 'cmx-empty', text: ts.length ? 'No open comments. ' + nres + ' resolved — tick “Show resolved” to see them.' : 'No comments on this page yet. Write one above, or press “comment” in the bar and click a spot on the page.' }));
     for (const [id, c] of shown) {
       const nrep = repliesOf(id).length;
       list.append(h('button', { type: 'button', class: 'cmx-item' + (c.resolved ? ' resolved' : ''), onclick: () => {
         if (innerWidth < 760) side.classList.remove('open');
+        if (!c.anchor) { openThread(id); return; }
         const p = where(c.anchor); scrollTo({ top: Math.max(0, p.y - innerHeight / 3), behavior: 'smooth' }); setTimeout(() => openThread(id), 350);
       } },
-        h('span', { class: 'n', text: String(c.n) }),
-        h('span', { class: 'b' }, h('span', { class: 'cmx-meta' }, h('b', { text: c.author }), h('span', { text: ago(c.createdAt) + (nrep ? ' · ' + nrep + (nrep > 1 ? ' replies' : ' reply') : '') + (c.resolved ? ' · resolved' : '') })), h('span', { class: 't', text: c.text }))));
+        h('span', { class: 'n' + (c.anchor ? '' : ' g'), text: String(c.n), title: c.anchor ? 'Pinned on the page' : 'General comment' }),
+        h('span', { class: 'b' }, h('span', { class: 'cmx-meta' }, h('b', { text: c.author }), h('span', { text: ago(c.createdAt) + (nrep ? ' · ' + nrep + (nrep > 1 ? ' replies' : ' reply') : '') + (c.resolved ? ' · resolved' : '') })), c.anchor ? null : h('span', { class: 'cmx-tag', text: 'General' }), h('span', { class: 't', text: c.text }))));
     }
   }
   // keep pins on their elements as the layout moves (images, fonts, accordions, resize)
   let raf = 0;
-  const reflow = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => { render(); if (openId && pop && comments[openId]) { const p = where(comments[openId].anchor); place(pop, p.x, p.y); } }); };
+  const reflow = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => { render(); if (openId && pop && comments[openId]) { const p = threadPos(comments[openId]); place(pop, p.x, p.y); } }); };
   addEventListener('resize', reflow); addEventListener('load', reflow);
   document.addEventListener('toggle', reflow, true);
   if ('ResizeObserver' in window) new ResizeObserver(reflow).observe(document.body);

@@ -66,3 +66,8 @@ body.cmx-mode,body.cmx-mode *{cursor:crosshair!important}
 /* while placing a comment, form controls let the tap through to the page (so nothing opens or focuses) */
 body.cmx-mode select,body.cmx-mode input,body.cmx-mode textarea{pointer-events:none}
 body.cmx-mode .cmx-pop *,body.cmx-mode .cmx-side *{pointer-events:auto}
+
+.cmx-gform{border-top:0;border-bottom:1px solid #EEF0F2;padding:12px 16px}
+.cmx-gform textarea{min-height:64px}
+.cmx-item .n.g{border-radius:6px;background:#56B146}
+.cmx-tag{display:inline-block;margin:2px 0 4px;padding:1px 8px;border-radius:999px;background:#E9F4E2;color:#2F6A17;font-size:11px;font-weight:800}

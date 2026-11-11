@@ -122,11 +122,41 @@ function watch(page, tag) { page.on('pageerror', (e) => errors.push(tag + ': ' +
     const del403 = await fetch(BASE + '/api/comment/' + T, { method: 'DELETE', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ token: 'nope' }) });
     ok('server refuses delete by non-author', del403.status === 403, del403.status);
     p1.once('dialog', (d) => d.accept());
-    await p1.click('.cmx-pin[data-id="' + T + '"]'); await sleep(200);
+    await sleep(400); await p1.evaluate((id) => document.querySelector('.cmx-pin[data-id="' + id + '"]').click(), T); await sleep(300);
     await p1.evaluate(() => document.querySelector('.cmx-pop .cmx-msg .cmx-link').click()); await sleep(1200);
     st = await state();
     ok('author delete removes the thread and its replies', !st[T] && !Object.values(st).some((c) => c.parent === T));
     ok('deleted thread vanishes for user 2 live', await p2.$('.cmx-pin[data-id="' + T + '"]') === null);
+
+    // ---------- free (general) comments from the Comments panel ----------
+    console.log('general comments');
+    const badge0 = Number(await p1.$eval('.cmx-badge', (e) => e.textContent));
+    await p1.click('.cmx-listbtn'); await sleep(300);
+    ok('panel has a free comment box', await p1.$('.cmx-side .cmx-gform textarea') !== null);
+    ok('panel knows the name already', await p1.$eval('.cmx-side .cmx-gform', (e) => e.innerText.includes('Posting as E2E One') || !!e.querySelector('input')));
+    await p1.type('.cmx-side .cmx-gform textarea', 'e2e: general note');
+    await p1.click('.cmx-side .cmx-gform .cmx-btn.pri'); await sleep(1000);
+    st = await state(); const G = Object.keys(st).find((k) => st[k].text === 'e2e: general note'); if (G) created.push(G);
+    ok('general comment saved without a spot', !!G && st[G].anchor === null && st[G].page === 'a', G && st[G]);
+    ok('box clears after posting', await p1.$eval('.cmx-side .cmx-gform textarea', (e) => e.value) === '');
+    ok('listed with a General tag', await p1.$eval('.cmx-list', (e) => e.innerText.includes('General') && e.innerText.includes('e2e: general note')));
+    ok('no pin on the page for it', await p1.$('.cmx-pin[data-id="' + G + '"]') === null);
+    ok('counted in the badge', Number(await p1.$eval('.cmx-badge', (e) => e.textContent)) === badge0 + 1);
+    ok('user 2 sees it live in the panel', await p2.evaluate((g) => { document.querySelector('.cmx-listbtn').click(); return document.querySelector('.cmx-list').innerText.includes('e2e: general note'); }, G));
+    await p2.evaluate(() => [...document.querySelectorAll('.cmx-item')].find((b) => b.innerText.includes('e2e: general note')).click()); await sleep(400);
+    ok('opening it shows the thread on screen', await p2.$eval('.cmx-pop', (e) => { const r = e.getBoundingClientRect(); return e.innerText.includes('general') && r.left >= 0 && r.right <= innerWidth && r.top >= 0; }));
+    await p2.type('.cmx-pop textarea', 'e2e: reply on general'); await p2.click('.cmx-pop .cmx-btn.pri'); await sleep(1000);
+    st = await state();
+    ok('reply on a general comment saved', Object.values(st).some((c) => c.parent === G && c.text === 'e2e: reply on general'));
+    ok('author sees the reply count live', await p1.$eval('.cmx-list', (e) => e.innerText.includes('1 reply')));
+    await p2.evaluate(() => [...document.querySelectorAll('.cmx-pop .cmx-link')].find((b) => b.textContent === 'Resolve').click()); await sleep(1000);
+    ok('resolving marks it resolved in the list', await p1.$$eval('.cmx-item', (els) => els.some((e) => e.innerText.includes('e2e: general note') && e.innerText.includes('resolved'))));
+    await p1.click('.cmx-side input[type=checkbox]'); await sleep(200);
+    ok('with Show resolved off it disappears from the list', await p1.$eval('.cmx-list', (e) => !e.innerText.includes('e2e: general note')));
+    const emptyPost = await fetch(BASE + '/api/comment', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ page: 'a', general: true, text: '  ' }) });
+    ok('empty general comment refused', emptyPost.status === 400, emptyPost.status);
+    await p1.click('.cmx-side .cmx-x'); await p2.evaluate(() => { const x = document.querySelector('.cmx-pop .cmx-x'); if (x) x.click(); document.querySelector('.cmx-side .cmx-x').click(); });
+    // mobile: write from the panel
 
     // ---------- the page itself ----------
     console.log('pages');
@@ -185,9 +215,15 @@ function watch(page, tag) { page.on('pageerror', (e) => errors.push(tag + ': ' +
     await m.evaluate(() => document.querySelector('.cmx-add').click()); await m.touchscreen.touchStart(200, 600); await m.touchscreen.touchMove(200, 300); await m.touchscreen.touchEnd(); await sleep(300);
     ok('mobile: scrolling in comment mode does not place a comment', await m.$('.cmx-pop') === null);
     await m.evaluate(() => document.querySelector('.cmx-add').click());
+    await m.evaluate(() => { const x = document.querySelector('.cmx-pop .cmx-x'); if (x) x.click(); document.querySelector('.cmx-listbtn').click(); }); await sleep(300);
+    ok('mobile: free comment box fits the screen', await m.$eval('.cmx-side .cmx-gform', (e) => { const r = e.getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth + 1; }));
+    await m.type('.cmx-side .cmx-gform textarea', 'e2e: general from phone'); b = await center(m, '.cmx-side .cmx-gform .cmx-btn.pri'); await m.touchscreen.tap(b.x, b.y); await sleep(1000);
+    st = await state(); const GP = Object.keys(st).find((k) => st[k].text === 'e2e: general from phone'); if (GP) created.push(GP);
+    ok('mobile: general comment saved', !!GP && st[GP].anchor === null);
+    await m.evaluate(() => document.querySelector('.cmx-side .cmx-x').click());
     // sidebar → thread on phone
     await m.evaluate(() => document.querySelector('.cmx-listbtn').click()); await sleep(300); await m.evaluate(() => document.querySelector('.cmx-item').click()); await sleep(900);
-    ok('mobile: picking from the list closes the list and opens the thread', await m.evaluate(() => !document.querySelector('.cmx-side').classList.contains('open') && !!document.querySelector('.cmx-pop')));
+    ok('mobile: picking from the list closes the list and opens the thread', await m.evaluate(() => !document.querySelector('.cmx-side').classList.contains('open') && !!document.querySelector('.cmx-pop')), await m.evaluate(() => ({ open: document.querySelector('.cmx-side').classList.contains('open'), pop: !!document.querySelector('.cmx-pop'), items: [...document.querySelectorAll('.cmx-item')].map((e) => e.innerText.slice(0, 40)) })));
 
     // ---------- server ----------
     console.log('server');

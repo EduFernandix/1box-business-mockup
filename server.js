@@ -58,11 +58,11 @@ http.createServer(async (req, res) => {
       const parent = b.parent ? clean(b.parent, 16) : null;
       if (!PAGES.has(page) || !text) return json(res, 400, { error: 'bad request' });
       let anchor = null;
-      if (!parent) {
+      if (!parent && !b.general) {
         const a = b.anchor || {}; const sel = clean(a.sel, 600);
         if (!SEL.test(sel)) return json(res, 400, { error: 'bad anchor' });
         anchor = { sel, fx: num(a.fx, 0, 1), fy: num(a.fy, 0, 1), px: num(a.px, 0, 1), py: num(a.py, 0, 1e6), vw: num(a.vw, 0, 10000) };
-      } else if (!/^[a-f0-9]{16}$/.test(parent)) return json(res, 400, { error: 'bad parent' });
+      } else if (parent && !/^[a-f0-9]{16}$/.test(parent)) return json(res, 400, { error: 'bad parent' });
       const id = crypto.randomBytes(8).toString('hex');
       const out = await mutate((st) => {
         if (Object.keys(st.comments).length >= MAX_COMMENTS) return 507;
