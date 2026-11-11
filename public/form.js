@@ -1,6 +1,10 @@
 // Quote form: same client behaviour as business.1box.nl (validate facility + email,
 // then "Een moment…" → "Doorsturen…"). This is a mockup: nothing is sent anywhere.
 (function () {
+  // mobile menu button
+  const burger = document.querySelector('.site-header .burger');
+  if (burger) { burger.setAttribute('aria-expanded', 'false'); burger.addEventListener('click', () => { const open = burger.closest('.site-header').classList.toggle('open'); burger.setAttribute('aria-expanded', String(open)); }); }
+
   const form = document.querySelector('form.quote-form');
   if (!form) return;
   const card = form.closest('.quote-card');

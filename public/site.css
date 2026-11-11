@@ -1,7 +1,11 @@
 /* Mobile header like the 1box.nl home: logo + CTA + menu button; top bar shows one USP. */
-.site-header .burger{display:none;all:unset;cursor:pointer;width:44px;height:44px;place-items:center;border-radius:8px}
+.site-header .burger{all:unset;display:none;cursor:pointer;width:44px;height:44px;place-items:center;border-radius:8px}
+.site-header .burger:focus-visible{outline:3px solid #66B142}
 @media (max-width:860px){
   .site-header .nav{display:none!important}
+  .site-header.open > div{flex-wrap:wrap!important}
+  .site-header.open .nav{display:flex!important;flex-direction:column;align-items:flex-start!important;gap:4px!important;width:100%;order:4;padding:8px 0 4px}
+  .site-header.open .nav a{padding:10px 0;border-bottom:0!important}
   .site-header .burger{display:grid;order:3}
   .site-header > div{flex-wrap:nowrap!important;gap:12px!important}
   .site-header > div > img{height:48px!important;margin-right:auto}

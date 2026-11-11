@@ -18,17 +18,17 @@ function publicState() { const comments = {}; for (const [k, v] of Object.entrie
 const clients = new Set();
 function broadcast() { const data = 'event: state\ndata: ' + JSON.stringify(publicState()) + '\n\n'; for (const res of clients) { try { res.write(data); } catch (_) { clients.delete(res); } } }
 setInterval(() => { for (const res of clients) { try { res.write(': ping\n\n'); } catch (_) { clients.delete(res); } } }, 20000);
-let writing = Promise.resolve();
+let writing = Promise.resolve(); let lastSig = '';
 function mutate(fn) {
-  const p = writing.then(async () => { load(); const out = fn(state); await fs.promises.writeFile(DATA + '.tmp', JSON.stringify(state)); await fs.promises.rename(DATA + '.tmp', DATA); broadcast(); return out; });
+  const p = writing.then(async () => { load(); const out = fn(state); await fs.promises.writeFile(DATA + '.tmp', JSON.stringify(state)); await fs.promises.rename(DATA + '.tmp', DATA); try { const st = fs.statSync(DATA); lastSig = st.size + ':' + st.mtimeMs; } catch (_) {} broadcast(); return out; });
   writing = p.catch((e) => console.error('save', e)); return p;
 }
-let lastSig = ''; setInterval(() => { try { const st = fs.statSync(DATA); const sig = st.size + ':' + st.mtimeMs; if (sig !== lastSig) { lastSig = sig; load(); broadcast(); } } catch (_) {} }, 2000);
+setInterval(() => { try { const st = fs.statSync(DATA); const sig = st.size + ':' + st.mtimeMs; if (sig !== lastSig) { lastSig = sig; load(); broadcast(); } } catch (_) {} }, 2000);
 
 const MIME = { '.html': 'text/html; charset=utf-8', '.jpg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml' };
 const SEC = { 'x-content-type-options': 'nosniff', 'referrer-policy': 'same-origin', 'x-robots-tag': 'noindex, nofollow', 'x-frame-options': 'SAMEORIGIN' };
 function json(res, code, body) { res.writeHead(code, { ...SEC, 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }); res.end(JSON.stringify(body)); }
-function readBody(req) { return new Promise((ok, no) => { let b = ''; req.on('data', (c) => { b += c; if (b.length > 2e4) { no(new Error('too large')); req.destroy(); } }); req.on('end', () => { try { ok(b ? JSON.parse(b) : {}); } catch (e) { no(e); } }); }); }
+function readBody(req) { return new Promise((ok, no) => { let b = '', over = false; req.on('data', (c) => { if (over) return; b += c; if (b.length > 2e4) { over = true; b = ''; const e = new Error('Comment is too long'); e.status = 413; no(e); } }); req.on('end', () => { if (over) return; try { ok(b ? JSON.parse(b) : {}); } catch (e) { no(new Error('bad request')); } }); req.on('error', no); }); }
 const clean = (s, n) => String(s == null ? '' : s).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').trim().slice(0, n);
 const num = (v, lo, hi) => { const x = Number(v); return Number.isFinite(x) ? Math.min(hi, Math.max(lo, x)) : 0; };
 const hash = (t) => crypto.createHash('sha256').update(t).digest('hex');
@@ -37,7 +37,7 @@ const SEL = /^[#a-z0-9_:\-()> .]{0,600}$/i;
 // tiny per-IP rate limit for writes: 30 a minute
 const hits = new Map();
 function limited(req) {
-  const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
+  const ip = String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',').pop().trim();
   const now = Date.now(); const arr = (hits.get(ip) || []).filter((t) => now - t < 60000); arr.push(now); hits.set(ip, arr); return arr.length > 30;
 }
 setInterval(() => { const now = Date.now(); for (const [k, v] of hits) if (!v.some((t) => now - t < 60000)) hits.delete(k); }, 60000);
@@ -49,7 +49,7 @@ http.createServer(async (req, res) => {
     if (url.pathname === '/api/events' && req.method === 'GET') {
       res.writeHead(200, { 'content-type': 'text/event-stream', 'cache-control': 'no-cache, no-transform', connection: 'keep-alive', 'x-accel-buffering': 'no' });
       load(); res.write('retry: 2000\n\n'); res.write('event: state\ndata: ' + JSON.stringify(publicState()) + '\n\n');
-      clients.add(res); req.on('close', () => clients.delete(res)); return;
+      clients.add(res); res.on('error', () => clients.delete(res)); req.on('close', () => clients.delete(res)); return;
     }
     if (url.pathname === '/api/comment' && req.method === 'POST') {
       if (limited(req)) return json(res, 429, { error: 'Too many comments, try again in a minute' });
@@ -67,7 +67,7 @@ http.createServer(async (req, res) => {
       const out = await mutate((st) => {
         if (Object.keys(st.comments).length >= MAX_COMMENTS) return 507;
         if (parent && (!st.comments[parent] || st.comments[parent].parent)) return 404;
-        st.comments[id] = { page, parent, anchor, text, author, resolved: false, tokenHash: token ? hash(token) : null, createdAt: new Date().toISOString() };
+        st.comments[id] = { page: parent ? st.comments[parent].page : page, parent, anchor, text, author, resolved: false, tokenHash: token ? hash(token) : null, createdAt: new Date().toISOString() };
         const { tokenHash, ...pub } = st.comments[id]; return pub;
       });
       if (out === 507) return json(res, 507, { error: 'comment limit reached' });
@@ -94,13 +94,19 @@ http.createServer(async (req, res) => {
     }
     if (url.pathname.startsWith('/api/')) return json(res, 404, { error: 'not found' });
 
+    if (!['GET', 'HEAD'].includes(req.method)) return json(res, 405, { error: 'method not allowed' });
+    const canon = { '/a/': '/a', '/b/': '/b', '/a.html': '/a', '/b.html': '/b', '/index.html': '/' }[url.pathname];
+    if (canon) { res.writeHead(302, { ...SEC, location: canon }); return res.end(); }
     let p = ROUTES[url.pathname] || decodeURIComponent(url.pathname);
     const file = path.normalize(path.join(PUB, p)); if (!file.startsWith(PUB + path.sep)) return json(res, 403, { error: 'forbidden' });
     fs.stat(file, (err, st) => {
       if (err || !st.isFile()) { res.writeHead(404, SEC); return res.end('not found'); }
       const ext = path.extname(file).toLowerCase();
       res.writeHead(200, { ...SEC, 'content-type': MIME[ext] || 'application/octet-stream', 'cache-control': ['.html', '.js', '.css'].includes(ext) ? 'no-cache' : 'public, max-age=86400' });
-      fs.createReadStream(file).pipe(res);
+      if (req.method === 'HEAD') return res.end();
+      fs.createReadStream(file).on('error', () => res.destroy()).pipe(res);
     });
-  } catch (e) { json(res, 400, { error: String(e.message || e) }); }
+  } catch (e) { if (!res.headersSent) json(res, e.status || 400, { error: String(e.message || e) }); else res.end(); }
 }).listen(PORT, () => console.log('business mockup on', PORT, 'data', DATA));
+// node is PID 1 in the container: without this, a deploy waits 10 s for a kill
+for (const sig of ['SIGTERM', 'SIGINT']) process.on(sig, () => writing.finally(() => process.exit(0)));
