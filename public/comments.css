@@ -1,0 +1,61 @@
+/* Review layer: toolbar, pins, threads, sidebar. Everything is prefixed cmx- so it never clashes with the page. */
+.cmx-bar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:2147483000;display:flex;align-items:center;gap:6px;padding:6px;background:#1E0B38;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:700 14px Mulish,system-ui,sans-serif;color:#fff;max-width:calc(100vw - 24px);flex-wrap:wrap;justify-content:center}
+.cmx-bar a,.cmx-bar button{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border-radius:999px;cursor:pointer;color:#fff;white-space:nowrap}
+.cmx-bar a:hover,.cmx-bar button:hover{background:rgba(255,255,255,.12);text-decoration:none;color:#fff}
+.cmx-bar a.on{background:#fff;color:#1E0B38}
+.cmx-bar .cmx-add.on{background:#56B146;color:#fff}
+.cmx-bar .cmx-sep{width:1px;height:24px;background:rgba(255,255,255,.25);margin:0 2px}
+.cmx-badge{min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:#56B146;color:#fff;font-size:12px;display:inline-grid;place-items:center}
+.cmx-bar button:focus-visible,.cmx-bar a:focus-visible{outline:3px solid #9BD58A;outline-offset:2px}
+
+body.cmx-mode,body.cmx-mode *{cursor:crosshair!important}
+.cmx-hover{position:absolute;z-index:2147482990;pointer-events:none;border:2px solid #56B146;background:rgba(86,177,70,.08);border-radius:4px;transition:all .06s}
+.cmx-hint{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483000;background:#56B146;color:#fff;font:800 14px Mulish,system-ui,sans-serif;padding:10px 16px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+
+.cmx-layer{position:absolute;left:0;top:0;width:0;height:0;z-index:2147482995}
+.cmx-pin{all:unset;box-sizing:border-box;position:absolute;width:30px;height:30px;margin:-30px 0 0 0;border-radius:15px 15px 15px 2px;background:#1E0B38;color:#fff;font:800 13px Mulish,system-ui,sans-serif;display:grid;place-items:center;cursor:pointer!important;box-shadow:0 3px 10px rgba(0,0,0,.3);border:2px solid #fff}
+.cmx-pin.resolved{background:#8A8F98;opacity:.75}
+.cmx-pin.active{background:#56B146;transform:scale(1.12)}
+.cmx-pin:focus-visible{outline:3px solid #56B146;outline-offset:2px}
+
+.cmx-pop{position:absolute;z-index:2147483001;width:320px;max-width:calc(100vw - 24px);background:#fff;color:#1F2937;border-radius:12px;box-shadow:0 14px 40px rgba(30,11,56,.28);font:400 14px/1.5 Mulish,system-ui,sans-serif;cursor:auto!important}
+.cmx-pop *{cursor:auto!important}
+.cmx-pop button,.cmx-pop a{cursor:pointer!important}
+.cmx-pop-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid #EEF0F2;font-weight:800;color:#1E0B38}
+.cmx-msgs{max-height:300px;overflow:auto;padding:4px 12px}
+.cmx-msg{padding:10px 0;border-bottom:1px solid #F1F2F4}
+.cmx-msg:last-child{border-bottom:0}
+.cmx-meta{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#6B7280;margin-bottom:2px}
+.cmx-meta b{color:#1E0B38;font-size:13px}
+.cmx-text{white-space:pre-wrap;word-wrap:break-word}
+.cmx-form{padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px;border-top:1px solid #EEF0F2}
+.cmx-form input,.cmx-form textarea{width:100%;box-sizing:border-box;border:1.5px solid #E8EAED;border-radius:8px;padding:9px 10px;font:400 14px Mulish,system-ui,sans-serif;color:#1F2937;resize:vertical}
+.cmx-form input:focus,.cmx-form textarea:focus{outline:none;border-color:#56B146;box-shadow:0 0 0 3px rgba(86,177,70,.15)}
+.cmx-form textarea{min-height:72px}
+.cmx-row{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+.cmx-btn{all:unset;box-sizing:border-box;min-height:36px;padding:0 14px;border-radius:8px;font:800 14px Mulish,system-ui,sans-serif;display:inline-flex;align-items:center;cursor:pointer}
+.cmx-btn.pri{background:#56B146;color:#fff}.cmx-btn.pri:hover{background:#489a3b}
+.cmx-btn.sec{color:#1E0B38}.cmx-btn.sec:hover{background:#F3F5F5}
+.cmx-btn:focus-visible{outline:3px solid #56B146;outline-offset:1px}
+.cmx-link{all:unset;cursor:pointer;color:#0B5FC4;font-size:12px;font-weight:800}
+.cmx-link:hover{text-decoration:underline}
+.cmx-x{all:unset;cursor:pointer;width:28px;height:28px;display:grid;place-items:center;border-radius:6px;color:#6B7280}
+.cmx-x:hover{background:#F3F5F5}
+
+.cmx-side{position:fixed;top:0;right:0;bottom:0;width:360px;max-width:100vw;z-index:2147483002;background:#fff;box-shadow:-10px 0 30px rgba(0,0,0,.15);display:flex;flex-direction:column;font:400 14px/1.5 Mulish,system-ui,sans-serif;color:#1F2937;transform:translateX(105%);transition:transform .2s}
+.cmx-side.open{transform:none}
+.cmx-side-h{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #EEF0F2}
+.cmx-side-h b{font-size:17px;color:#1E0B38}
+.cmx-side-f{display:flex;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid #EEF0F2;font-size:13px}
+.cmx-side-f label{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+.cmx-list{flex:1;overflow:auto;padding:8px}
+.cmx-item{all:unset;box-sizing:border-box;display:flex;gap:10px;width:100%;padding:12px;border-radius:10px;cursor:pointer}
+.cmx-item:hover{background:#F6F7F9}
+.cmx-item:focus-visible{outline:3px solid #56B146}
+.cmx-item .n{flex:none;width:26px;height:26px;border-radius:13px 13px 13px 2px;background:#1E0B38;color:#fff;font:800 12px Mulish,sans-serif;display:grid;place-items:center}
+.cmx-item.resolved .n{background:#8A8F98}
+.cmx-item .b{min-width:0;flex:1}
+.cmx-item .t{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap}
+.cmx-empty{padding:24px 16px;color:#6B7280}
+.cmx-toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);z-index:2147483003;background:#1E0B38;color:#fff;font:700 14px Mulish,sans-serif;padding:10px 16px;border-radius:8px}
+@media (max-width:600px){.cmx-bar{bottom:10px;font-size:13px}.cmx-bar a,.cmx-bar button{padding:0 10px}}

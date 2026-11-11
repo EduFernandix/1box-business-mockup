@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Zakelijke opslag – variatie B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#fff}
+a{color:#0B5FC4;text-decoration:none}a:hover{color:#083F85;text-decoration:underline}
+*{box-sizing:border-box}
+.fld{width:100%;height:52px;border:1px solid #CDD3D3;border-radius:6px;padding:0 14px;font:400 16px Mulish,sans-serif;color:#1E0B38;background:#fff}
+.fld:focus{outline:3px solid rgba(102,177,66,.35);border-color:#66B142}
+select.fld{cursor:pointer}
+.lbl{display:block;font:800 15px Mulish,sans-serif;color:#1E0B38;margin:0 0 6px}
+.btn-g{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 24px;border:0;border-radius:6px;background:#66B142;color:#fff;font:800 17px Mulish,sans-serif;cursor:pointer}
+.btn-g:hover{background:#579A36;color:#fff;text-decoration:none}
+.btn-w{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 24px;border:0;border-radius:6px;background:#fff;color:#1E0B38;font:800 17px Mulish,sans-serif;cursor:pointer}
+.btn-w:hover{background:#E9F4E2;text-decoration:none;color:#1E0B38}
+.lnk{all:unset;cursor:pointer;color:#0B5FC4;font:800 15px Mulish,sans-serif}
+.lnk:hover{text-decoration:underline}
+.quote-card{background:#fff;border-radius:14px;box-shadow:0 10px 34px rgba(30,11,56,.12);padding:30px 28px;position:relative;font-family:Mulish,sans-serif}
+.quote-card h2{margin:0;font-size:20.8px;font-weight:900;color:#1E0B38;letter-spacing:-.01em}
+.quote-card .qc-sub{font-size:13.9px;color:#6B7280;margin:5px 0 20px}
+.quote-card .form-error{background:#fdf0ef;border:1.5px solid #f0c4bf;color:#c0392b;border-radius:10px;padding:10px 13px;font-size:13.4px;font-weight:700;margin-bottom:13px}
+.quote-card .hp-field{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.quote-card .field{margin-bottom:14px}
+.quote-card .field label{display:block;font-size:12.5px;font-weight:800;color:#1E0B38;margin-bottom:6px}
+.quote-card .field select,.quote-card .field input{width:100%;padding:12px 14px;border:1.5px solid #E8EAED;border-radius:10px;font:400 15px Mulish,sans-serif;color:#1F2937;background:#fff;transition:all .2s;appearance:none;-webkit-appearance:none;margin:0}
+.quote-card .field select{cursor:pointer}
+.quote-card .field input::placeholder{color:#9CA3AF}
+.quote-card .field select:focus,.quote-card .field input:focus{outline:none;border-color:#56B146;box-shadow:0 0 0 3px rgba(86,177,70,.1)}
+.quote-card .select-wrap{position:relative}
+.quote-card .select-wrap::after{content:"";position:absolute;right:16px;top:42px;width:8px;height:8px;border-right:2px solid #56B146;border-bottom:2px solid #56B146;transform:rotate(45deg);pointer-events:none}
+.quote-card .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.quote-card .field-error{font-size:12px;font-weight:700;color:#c0392b;margin:5px 0 0}
+.quote-card .btn-quote{display:flex;width:100%;align-items:center;justify-content:center;gap:9px;margin-top:4px;padding:15px;border:0;border-radius:10px;background:#56B146;color:#fff;font:800 16px Mulish,sans-serif;cursor:pointer;transition:all .2s}
+.quote-card .btn-quote:hover{background:#489a3b}
+.quote-card .btn-quote[disabled]{opacity:.65;pointer-events:none}
+.quote-card .qc-note{text-align:center;font-size:12.2px;color:#9CA3AF;margin:12px 0 0}
+@media (max-width:560px){.quote-card .field-row{grid-template-columns:1fr;gap:0}}
+.row-opt{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:20px;width:100%;padding:22px 24px;cursor:pointer;border-top:1px solid #E4E8E8}
+.row-opt:first-child{border-top:0}
+.row-opt:hover{background:#F6FAF3}
+.row-opt:focus-visible{outline:3px solid #66B142;outline-offset:-3px}
+.loc{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;padding:0 16px;border-radius:8px;background:#F3F5F5;font:700 15px Mulish,sans-serif;color:#1E0B38;cursor:pointer}
+.loc:hover{background:#E3F1DA}
+.nav a{color:#1E0B38;font:800 17px Mulish,sans-serif}
+.nav a:hover{color:#3E7F22;text-decoration:none}
+.foot a{color:#fff}.foot a:hover{color:#1E0B38;text-decoration:none}
+details summary{list-style:none;cursor:pointer}
+details summary::-webkit-details-marker{display:none}
+details[open] .pm{transform:rotate(45deg)}
+</style>
+<link rel="stylesheet" href="comments.css">
+</head>
+<body data-page="b">
+<div style="font-family: Mulish, ui-sans-serif, system-ui, sans-serif; color: #1E0B38; background: #fff; width: 100%">
+
+<!-- Top bar -->
+<div style="background: #EDF0F0; font-size: 14px">
+  <div style="max-width: 1252px; margin: 0 auto; padding: 10px 20px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between">
+    <div style="display: flex; flex-wrap: wrap; gap: 6px 22px; color: #3B3150">
+      <span style="display: inline-flex; gap: 6px; align-items: center"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Altijd de beste prijs</span>
+      <span style="display: inline-flex; gap: 6px; align-items: center"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>24/7 beveiligde opslag</span>
+      <span style="display: inline-flex; gap: 6px; align-items: center"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Flexibel opzeggen</span>
+    </div>
+    <div style="display: flex; gap: 22px; align-items: center">
+      <a href="#" style="color: #3B3150">Contact</a>
+      <a href="#" style="color: #3B3150">Klantportaal</a>
+      <a href="tel:0850161611" style="color: #3B3150; font-weight: 800">085-016 16 11</a>
+      <span style="border: 1px solid #CDD3D3; border-radius: 4px; padding: 2px 8px; background: #fff"><b>NL</b> <span style="color: #5B5070">EN</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header style="background: #fff; border-bottom: 1px solid #E4E8E8">
+  <div style="max-width: 1252px; margin: 0 auto; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between">
+    <img src="assets/logo.png" alt="1BOX Self Storage" style="height: 64px; width: auto">
+    <nav class="nav" aria-label="Hoofdmenu" style="display: flex; flex-wrap: wrap; gap: 8px 30px; align-items: center">
+      <a href="#">Opslaglocaties ▾</a>
+      <a href="#">Particuliere opslag ▾</a>
+      <a href="#" style="color: #3E7F22; border-bottom: 3px solid #66B142; padding-bottom: 4px">Zakelijke opslag ▾</a>
+      <a href="#">Hoe werkt het? ▾</a>
+      <a href="#">Zoeken</a>
+    </nav>
+    <a class="btn-g" href="#offerte">Nu reserveren</a>
+  </div>
+</header>
+
+<!-- Hero: copy left, 2-step quote right -->
+<section style="background: linear-gradient(180deg, #F3F5F5 0%, #F3F5F5 78%, #fff 78%)">
+  <div style="max-width: 1252px; margin: 0 auto; padding: 48px 20px 0; display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-start">
+    <div style="flex: 1 1 460px; min-width: 0; padding-top: 12px">
+      <p style="margin: 0 0 18px; font-size: 15px; color: #4A3F5C">Home › Zakelijke opslag</p>
+      <span style="display: inline-block; background: #E3F1DA; color: #2F6A17; font-weight: 800; font-size: 14px; padding: 6px 12px; border-radius: 999px">Voor bedrijven, zzp'ers en webshops</span>
+      <h1 style="margin: 16px 0 0; font-size: 50px; line-height: 1.08; font-weight: 800">Zakelijke opslag.<br><span style="color: #3E7F22">Maak ruimte voor jouw onderneming.</span></h1>
+      <p style="margin: 22px 0 0; font-size: 19px; line-height: 1.6; max-width: 560px">Ruimtegebrek in jouw kantoor of bedrijfspand? Ontdek de mogelijkheden van zakelijke opslag bij 1BOX: de partner voor professionele en flexibele opslagruimtes.</p>
+      <ul style="list-style: none; margin: 26px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px 24px; font-size: 16px; font-weight: 700">
+        <li style="display: flex; gap: 10px; align-items: flex-start"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="12" fill="#66B142"></circle><path d="m7 12 3.5 3.5L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>365 dagen open, 06:00–23:00</li>
+        <li style="display: flex; gap: 10px; align-items: flex-start"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="12" fill="#66B142"></circle><path d="m7 12 3.5 3.5L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Verzekerde opslag</li>
+        <li style="display: flex; gap: 10px; align-items: flex-start"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="12" fill="#66B142"></circle><path d="m7 12 3.5 3.5L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Flexibel, vanaf één maand</li>
+        <li style="display: flex; gap: 10px; align-items: flex-start"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="12" fill="#66B142"></circle><path d="m7 12 3.5 3.5L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Overdekt laden en lossen</li>
+        <li style="display: flex; gap: 10px; align-items: flex-start"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="12" fill="#66B142"></circle><path d="m7 12 3.5 3.5L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Meegroeien: meerdere units, één contract</li>
+        <li style="display: flex; gap: 10px; align-items: flex-start"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="12" fill="#66B142"></circle><path d="m7 12 3.5 3.5L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Geen borg of administratiekosten</li>
+      </ul>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; margin-top: 28px; font-size: 15px">
+        <span style="display: inline-flex; gap: 8px; align-items: center"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.9 7.1.6-5.4 4.7 1.7 7.1L12 17.6 5.7 21.3l1.7-7.1L2 9.5l7.1-.6Z" fill="#00B67A"></path></svg><b>Trustpilot 4,2</b>/5 · 717 reviews</span>
+        <span style="display: inline-flex; gap: 8px; align-items: center"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.3Z" fill="#4285F4"></path><path d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22Z" fill="#34A853"></path><path d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2Z" fill="#FBBC05"></path><path d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.4L6.4 10c.8-2.3 3-4 5.6-4Z" fill="#EA4335"></path></svg><b>Google 4,8</b>/5 · 3.574 reviews</span>
+      </div>
+    </div>
+
+    <!-- Quote card: identical to business.1box.nl -->
+    <div class="quote-card" id="offerte" style="flex: 0 1 448px; margin-left: auto">
+      <div class="form-error" role="alert" hidden></div>
+      <form class="quote-form" novalidate="novalidate">
+        <h2>Nu reserveren</h2>
+        <p class="qc-sub">Kies een opslagruimte en ontvang jouw prijs.</p>
+        <div class="hp-field" aria-hidden="true">
+          <label for="b-website">Website</label>
+          <input id="b-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="field select-wrap">
+          <label for="b-facility">Locatie</label>
+          <select id="b-facility" name="facility" required="required">
+            <option value="" disabled selected>Kies een opslaglocatie</option>
+            <option value="Alkmaar">Alkmaar</option><option value="Almere">Almere</option><option value="Alphen aan den Rijn">Alphen aan den Rijn</option><option value="Amsterdam">Amsterdam</option><option value="Barendrecht">Barendrecht</option><option value="Bergen op Zoom">Bergen op Zoom</option><option value="Boxtel">Boxtel</option><option value="Breda">Breda</option><option value="Den Bosch">Den Bosch</option><option value="Den Haag">Den Haag</option><option value="Eindhoven Best">Eindhoven Best</option><option value="Goes">Goes</option><option value="Groningen">Groningen</option><option value="Heerlen">Heerlen</option><option value="Heerlen-Heerlerbaan">Heerlen-Heerlerbaan</option><option value="Hellevoetsluis">Hellevoetsluis</option><option value="Helmond">Helmond</option><option value="Helmond Kanaaldijk">Helmond Kanaaldijk</option><option value="Lelystad">Lelystad</option><option value="Nijmegen-Wijchen">Nijmegen-Wijchen</option><option value="Rijswijk">Rijswijk</option><option value="Roermond">Roermond</option><option value="Rotterdam Centrum">Rotterdam Centrum</option><option value="Rotterdam Zuid">Rotterdam Zuid</option><option value="Schiedam">Schiedam</option><option value="Sittard">Sittard</option><option value="Tilburg">Tilburg</option><option value="Utrecht">Utrecht</option><option value="Venlo">Venlo</option>
+          </select>
+          <p class="field-error" data-err="facility" hidden></p>
+        </div>
+        <div class="field select-wrap">
+          <label for="b-kind">Wat wil je opslaan?</label>
+          <select id="b-kind" name="storageKind">
+            <option selected value="">Weet ik nog niet</option><option value="Archief">Archief</option><option value="Goederen">Goederen</option><option value="Magazijn / logistiek">Magazijn / logistiek</option><option value="Voorraad">Voorraad</option><option value="Webshopvoorraad">Webshopvoorraad</option><option value="Gereedschap">Gereedschap</option><option value="Parkeerplaats">Parkeerplaats</option><option value="Postbus">Postbus</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="b-name">Jouw naam</label>
+            <input id="b-name" name="contactName" type="text" placeholder="Jan Jansen" autocomplete="name" required="required">
+          </div>
+          <div class="field">
+            <label for="b-company">Bedrijfsnaam</label>
+            <input id="b-company" name="companyName" type="text" placeholder="Jouw bedrijf" required="required">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="b-phone">Telefoonnummer</label>
+            <input id="b-phone" name="phone" type="tel" placeholder="06 12345678" required="required">
+          </div>
+          <div class="field">
+            <label for="b-email">E-mailadres</label>
+            <input id="b-email" name="email" type="email" placeholder="info@bedrijf.nl" required="required">
+            <p class="field-error" data-err="email" hidden></p>
+          </div>
+        </div>
+        <button class="btn-quote" type="submit"><span>Nu reserveren</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </button>
+        <p class="qc-note">Geen verplichtingen · Minimale huurperiode van slechts één maand</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Building photo band -->
+<div style="max-width: 1252px; margin: 40px auto 0; padding: 0 20px">
+  <img src="assets/building.jpg" alt="1BOX-vestiging met grote ramen" style="width: 100%; height: 300px; object-fit: cover; border-radius: 12px; display: block">
+</div>
+
+<!-- Options as a list: click = preselect in step 1 -->
+<section style="max-width: 1252px; margin: 0 auto; padding: 80px 20px; display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-start">
+  <div style="flex: 1 1 300px; max-width: 380px">
+    <h2 style="margin: 0; font-size: 40px; line-height: 1.15; font-weight: 800">Vind wat je nodig hebt</h2>
+    <p style="margin: 14px 0 0; font-size: 18px; line-height: 1.6">Bij 1BOX Self Storage bieden wij verschillende soorten opslagruimtes voor bedrijven. Klik op een optie: we zetten hem meteen in je aanvraag.</p>
+    <p style="margin: 22px 0 0; font-size: 16px">Spullen vervoeren? <a href="#" style="font-weight: 800">Leen gratis een aanhanger ›</a></p>
+  </div>
+  <div style="flex: 999 1 560px; min-width: 0; background: #fff; border: 1px solid #E4E8E8; border-radius: 12px; overflow: hidden">
+    <button type="button" class="row-opt" data-kind="Archief">
+      <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><rect x="6" y="8" width="36" height="10" rx="2" fill="#66B142"></rect><rect x="9" y="20" width="30" height="20" rx="2" fill="#C9E5B9"></rect><rect x="19" y="25" width="10" height="4" rx="2" fill="#66B142"></rect></svg>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><b style="font-size: 19px">Archiefopslag</b><span style="font-size: 16px; line-height: 1.5">Bewaar documenten veilig, droog en zorgeloos — en win kostbare kantoorruimte terug.</span></span>
+      <span style="flex: none; font-weight: 800; color: #0B5FC4; font-size: 15px">Reserveer direct ›</span>
+    </button>
+    <button type="button" class="row-opt" data-kind="Goederen">
+      <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><path d="M24 4 42 13v22L24 44 6 35V13Z" fill="#C9E5B9"></path><path d="M24 4 42 13 24 22 6 13Z" fill="#66B142"></path><path d="M24 22v22" stroke="#66B142" stroke-width="3"></path></svg>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><b style="font-size: 19px">Goederenopslag</b><span style="font-size: 16px; line-height: 1.5">Huur eenvoudig extra ruimte voor voorraad, materialen of logistieke goederen.</span></span>
+      <span style="flex: none; font-weight: 800; color: #0B5FC4; font-size: 15px">Reserveer direct ›</span>
+    </button>
+    <button type="button" class="row-opt" data-kind="Magazijn / logistiek">
+      <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><path d="M4 18 24 6l20 12v24H4Z" fill="#C9E5B9"></path><path d="M4 18 24 6l20 12" stroke="#66B142" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"></path><rect x="14" y="26" width="20" height="16" fill="#66B142"></rect><path d="M14 31h20M14 36h20" stroke="#C9E5B9" stroke-width="2"></path></svg>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><b style="font-size: 19px">Magazijnopslag</b><span style="font-size: 16px; line-height: 1.5">Extra ruimte voor voorraad of logistiek. Zonder te investeren in een volwaardig magazijn.</span></span>
+      <span style="flex: none; font-weight: 800; color: #0B5FC4; font-size: 15px">Reserveer direct ›</span>
+    </button>
+    <button type="button" class="row-opt" data-kind="Voorraad">
+      <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><rect x="6" y="26" width="16" height="16" rx="2" fill="#66B142"></rect><rect x="26" y="26" width="16" height="16" rx="2" fill="#C9E5B9"></rect><rect x="16" y="8" width="16" height="16" rx="2" fill="#C9E5B9"></rect><rect x="21" y="8" width="6" height="6" fill="#66B142"></rect></svg>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><b style="font-size: 19px">Voorraadopslag</b><span style="font-size: 16px; line-height: 1.5">Creëer direct extra ruimte en werk slimmer en efficiënter.</span></span>
+      <span style="flex: none; font-weight: 800; color: #0B5FC4; font-size: 15px">Reserveer direct ›</span>
+    </button>
+    <button type="button" class="row-opt" data-kind="Webshopvoorraad">
+      <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><path d="M14 14h28l-4 14H17Z" fill="#C9E5B9"></path><path d="M4 8h6l5 22h24l4-16H13" fill="none" stroke="#66B142" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="18" cy="38" r="4" fill="#66B142"></circle><circle cx="35" cy="38" r="4" fill="#66B142"></circle></svg>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><b style="font-size: 19px">Webshopopslag</b><span style="font-size: 16px; line-height: 1.5">Een veilige, flexibele en betaalbare oplossing voor het opslaan van webshopvoorraad.</span></span>
+      <span style="flex: none; font-weight: 800; color: #0B5FC4; font-size: 15px">Reserveer direct ›</span>
+    </button>
+    <button type="button" class="row-opt" data-kind="Gereedschap">
+      <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><path d="M30 6a10 10 0 0 0-9 14L7 34a4 4 0 0 0 6 6l14-14a10 10 0 0 0 14-9l-6 6-6-2-2-6 6-6Z" fill="#66B142"></path><circle cx="10" cy="37" r="2" fill="#C9E5B9"></circle></svg>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><b style="font-size: 19px">Gereedschapsopslag</b><span style="font-size: 16px; line-height: 1.5">Veilige opslag voor gereedschap en materialen — ideaal voor bouw, installatie en zzp'ers.</span></span>
+      <span style="flex: none; font-weight: 800; color: #0B5FC4; font-size: 15px">Reserveer direct ›</span>
+    </button>
+    <button type="button" class="row-opt" data-kind="Parkeerplaats">
+      <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><rect x="6" y="6" width="36" height="36" rx="6" fill="#C9E5B9"></rect><path d="M18 36V13h8a6.5 6.5 0 0 1 0 13h-8" fill="none" stroke="#66B142" stroke-width="5" stroke-linejoin="round"></path></svg>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><b style="font-size: 19px">Huur een parkeerplaats</b><span style="font-size: 16px; line-height: 1.5">Direct een vaste plek, zonder weken of maanden wachten op een vergunning.</span></span>
+      <span style="flex: none; font-weight: 800; color: #0B5FC4; font-size: 15px">Reserveer direct ›</span>
+    </button>
+    <button type="button" class="row-opt" data-kind="Postbus">
+      <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><rect x="4" y="14" width="40" height="24" rx="8" fill="#66B142"></rect><path d="M12 14h14a8 8 0 0 1 8 8v16H4V22a8 8 0 0 1 8-8Z" fill="#C9E5B9"></path><rect x="9" y="22" width="12" height="4" rx="2" fill="#66B142"></rect><path d="M37 21v7" stroke="#fff" stroke-width="3" stroke-linecap="round"></path></svg>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><b style="font-size: 19px">Vraag een postbus aan</b><span style="font-size: 16px; line-height: 1.5">Houd post overzichtelijk, en scheid zakelijke en privépost netjes.</span></span>
+      <span style="flex: none; font-weight: 800; color: #0B5FC4; font-size: 15px">Reserveer direct ›</span>
+    </button>
+  </div>
+</section>
+
+<!-- Why 1BOX: dark panel from the business page, home icons and type -->
+<section style="max-width: 1252px; margin: 0 auto; padding: 0 20px">
+  <div style="background: #1E0B38; color: #fff; border-radius: 16px; padding: 56px 48px">
+    <h2 style="margin: 0 0 40px; font-size: 40px; line-height: 1.15; font-weight: 800">Waarom kiezen voor 1BOX?</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 36px 40px">
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <span style="width: 56px; height: 56px; border-radius: 12px; background: #fff; display: grid; place-items: center"><svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#C9E5B9"></circle><path d="M24 12v13l8 6" stroke="#66B142" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 800">Ruime toegangstijden</h3>
+        <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #E4DEEE">Dagelijks toegang van 06:00 tot 23:00 uur, 365 dagen per jaar. Met de app open je de poort en jouw opslagruimte.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <span style="width: 56px; height: 56px; border-radius: 12px; background: #fff; display: grid; place-items: center"><svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 40 10v12c0 11-7 18-16 22C15 40 8 33 8 22V10Z" fill="#C9E5B9"></path><path d="m16 24 6 6 11-12" stroke="#66B142" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 800">Verzekerde opslag</h3>
+        <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #E4DEEE">Bij je opslagruimte is automatisch een verzekering inbegrepen. Alle locaties zijn voorzien van camerabewaking.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <span style="width: 56px; height: 56px; border-radius: 12px; background: #fff; display: grid; place-items: center"><svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="36" height="32" rx="4" fill="#C9E5B9"></rect><rect x="6" y="10" width="36" height="9" rx="3" fill="#66B142"></rect><rect x="13" y="5" width="4" height="9" rx="2" fill="#66B142"></rect><rect x="31" y="5" width="4" height="9" rx="2" fill="#66B142"></rect><rect x="13" y="26" width="10" height="4" rx="2" fill="#66B142"></rect><rect x="27" y="26" width="8" height="4" rx="2" fill="#66B142"></rect></svg></span>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 800">Flexibele huuropties</h3>
+        <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #E4DEEE">Het minimum is één maand, daarna kun je op elk moment opzeggen. De opzegtermijn is 15–45 dagen.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <span style="width: 56px; height: 56px; border-radius: 12px; background: #fff; display: grid; place-items: center"><svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true"><rect x="14" y="20" width="16" height="14" rx="2" fill="#C9E5B9"></rect><path d="M4 18 24 6l20 12" stroke="#66B142" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10 20v18h24" stroke="#66B142" stroke-width="4" fill="none" stroke-linecap="round"></path><circle cx="15" cy="42" r="3" fill="#66B142"></circle><circle cx="30" cy="42" r="3" fill="#66B142"></circle></svg></span>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 800">Overdekt laden en lossen</h3>
+        <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #E4DEEE">Gemakkelijk (overdekt) laden en lossen met karren, liften en brede paden.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <span style="width: 56px; height: 56px; border-radius: 12px; background: #fff; display: grid; place-items: center"><svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="28" width="9" height="14" rx="2" fill="#C9E5B9"></rect><rect x="19" y="19" width="9" height="23" rx="2" fill="#C9E5B9"></rect><rect x="32" y="8" width="9" height="34" rx="2" fill="#66B142"></rect></svg></span>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 800">Opslag die meegroeit met jouw bedrijf</h3>
+        <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #E4DEEE">Ga naar een grotere of kleinere unit wanneer dat nodig is. Meerdere units onder één contract.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <span style="width: 56px; height: 56px; border-radius: 12px; background: #fff; display: grid; place-items: center"><svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 4h28v40l-5-3-5 3-4-3-4 3-5-3-5 3Z" fill="#C9E5B9"></path><rect x="16" y="14" width="16" height="4" rx="2" fill="#66B142"></rect><rect x="16" y="22" width="16" height="4" rx="2" fill="#66B142"></rect><rect x="16" y="30" width="10" height="4" rx="2" fill="#66B142"></rect></svg></span>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 800">Geen borg of administratiekosten</h3>
+        <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #E4DEEE">Bij 1BOX betaal je geen borg en geen administratiekosten bij het starten van je huurcontract.</p>
+      </div>
+    </div>
+    <a class="btn-g" href="#offerte" style="margin-top: 40px">Vraag je prijs aan</a>
+  </div>
+</section>
+
+<!-- 3 numbered steps -->
+<section style="max-width: 1252px; margin: 0 auto; padding: 80px 20px">
+  <h2 style="margin: 0 0 36px; font-size: 40px; line-height: 1.15; font-weight: 800">Huur opslag in 3 simpele stappen</h2>
+  <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px">
+    <li style="background: #F3F5F5; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+      <span style="width: 48px; height: 48px; border-radius: 50%; background: #66B142; color: #fff; display: grid; place-items: center; font-size: 22px; font-weight: 800">1</span>
+      <h3 style="margin: 0; font-size: 22px; font-weight: 800">Kies een opslagruimte en ontvang een prijs</h3>
+      <p style="margin: 0; font-size: 16px; line-height: 1.6">Kies locatie en wat je wilt opslaan, vul je gegevens in en ontvang direct je prijs.</p>
+    </li>
+    <li style="background: #F3F5F5; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+      <span style="width: 48px; height: 48px; border-radius: 50%; background: #66B142; color: #fff; display: grid; place-items: center; font-size: 22px; font-weight: 800">2</span>
+      <h3 style="margin: 0; font-size: 22px; font-weight: 800">Huur opslagruimte en betaal</h3>
+      <p style="margin: 0; font-size: 16px; line-height: 1.6">Online afronden, zonder borg of administratiekosten.</p>
+    </li>
+    <li style="background: #F3F5F5; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+      <span style="width: 48px; height: 48px; border-radius: 50%; background: #66B142; color: #fff; display: grid; place-items: center; font-size: 22px; font-weight: 800">3</span>
+      <h3 style="margin: 0; font-size: 22px; font-weight: 800">Breng je spullen naar de opslag</h3>
+      <p style="margin: 0; font-size: 16px; line-height: 1.6">Met de app open je de poort en je unit — elke dag van 06:00 tot 23:00.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- FAQ in two columns -->
+<section style="background: #F3F5F5">
+  <div style="max-width: 1252px; margin: 0 auto; padding: 80px 20px">
+    <h2 style="margin: 0 0 32px; font-size: 40px; line-height: 1.15; font-weight: 800">Veelgestelde vragen</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 12px 24px; align-items: start">
+      <details style="background: #fff; border-radius: 12px; padding: 0 22px">
+        <summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 68px; font-size: 18px; font-weight: 800">Welke zakelijke goederen kan ik opslaan?<svg class="pm" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 5v14M5 12h14" stroke="#66B142" stroke-width="3" stroke-linecap="round"></path></svg></summary>
+        <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.65">Voorraad, handelsgoederen, gereedschap, beursmateriaal, archieven, kantoorinventaris en apparatuur. Niet toegestaan: gevaarlijke stoffen, brandbare of explosieve materialen, bederfelijke goederen en illegale producten.</p>
+      </details>
+      <details style="background: #fff; border-radius: 12px; padding: 0 22px">
+        <summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 68px; font-size: 18px; font-weight: 800">Geldt er een minimale huurperiode?<svg class="pm" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 5v14M5 12h14" stroke="#66B142" stroke-width="3" stroke-linecap="round"></path></svg></summary>
+        <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.65">Ja, minimaal één maand. Je zit niet vast aan lange huurcontracten zoals bij kantoorruimte.</p>
+      </details>
+      <details style="background: #fff; border-radius: 12px; padding: 0 22px">
+        <summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 68px; font-size: 18px; font-weight: 800">Is mijn bedrijfsvoorraad verzekerd?<svg class="pm" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 5v14M5 12h14" stroke="#66B142" stroke-width="3" stroke-linecap="round"></path></svg></summary>
+        <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.65">Bij je opslagruimte is automatisch een verzekering inbegrepen. De vestiging informeert je over de voorwaarden.</p>
+      </details>
+      <details style="background: #fff; border-radius: 12px; padding: 0 22px">
+        <summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 68px; font-size: 18px; font-weight: 800">Wanneer heb ik toegang?<svg class="pm" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 5v14M5 12h14" stroke="#66B142" stroke-width="3" stroke-linecap="round"></path></svg></summary>
+        <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.65">365 dagen per jaar, van 06:00 tot 23:00 uur.</p>
+      </details>
+      <details style="background: #fff; border-radius: 12px; padding: 0 22px">
+        <summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 68px; font-size: 18px; font-weight: 800">Kan de vloer zware goederen dragen?<svg class="pm" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 5v14M5 12h14" stroke="#66B142" stroke-width="3" stroke-linecap="round"></path></svg></summary>
+        <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.65">De vloeren zijn ontworpen voor normale tot zware belasting; de maximale belasting verschilt per locatie. Vraag bij zeer zware opslag vooraf advies.</p>
+      </details>
+      <details style="background: #fff; border-radius: 12px; padding: 0 22px">
+        <summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 68px; font-size: 18px; font-weight: 800">Meerdere opslagruimtes onder één contract?<svg class="pm" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 5v14M5 12h14" stroke="#66B142" stroke-width="3" stroke-linecap="round"></path></svg></summary>
+        <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.65">Zeker. Veel zakelijke klanten huren meerdere units onder één contract, bijvoorbeeld per soort voorraad of materiaal.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Locations grid: click = location in step 1 -->
+<section style="max-width: 1252px; margin: 0 auto; padding: 80px 20px">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 40px; margin-bottom: 28px">
+    <div style="max-width: 680px">
+      <h2 style="margin: 0; font-size: 40px; line-height: 1.15; font-weight: 800">Vind een locatie in de buurt</h2>
+      <p style="margin: 14px 0 0; font-size: 18px; line-height: 1.6">Dankzij onze 29 locaties door heel Nederland vind je altijd een opslagruimte bij jou in de buurt.</p>
+    </div>
+    <a href="#" style="font-weight: 800; font-size: 17px">Bekijk alle opslaglocaties op de kaart ›</a>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px">
+    
+      <button type="button" class="loc" data-loc="Alkmaar">Alkmaar<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Almere">Almere<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Alphen aan den Rijn">Alphen aan den Rijn<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Amsterdam">Amsterdam<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Barendrecht">Barendrecht<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Bergen op Zoom">Bergen op Zoom<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Boxtel">Boxtel<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Breda">Breda<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Den Bosch">Den Bosch<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Den Haag">Den Haag<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Eindhoven Best">Eindhoven Best<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Goes">Goes<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Groningen">Groningen<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Heerlen">Heerlen<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Heerlen-Heerlerbaan">Heerlen-Heerlerbaan<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Hellevoetsluis">Hellevoetsluis<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Helmond">Helmond<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Helmond Kanaaldijk">Helmond Kanaaldijk<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Lelystad">Lelystad<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Nijmegen-Wijchen">Nijmegen-Wijchen<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Rijswijk">Rijswijk<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Roermond">Roermond<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Rotterdam Centrum">Rotterdam Centrum<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Rotterdam Zuid">Rotterdam Zuid<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Schiedam">Schiedam<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Sittard">Sittard<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Tilburg">Tilburg<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Utrecht">Utrecht<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+      <button type="button" class="loc" data-loc="Venlo">Venlo<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    
+  </div>
+</section>
+
+<!-- Final CTA with quick start: location → step 2 -->
+<section style="background: #1E0B38; color: #fff">
+  <div style="max-width: 1252px; margin: 0 auto; padding: 64px 20px; display: flex; flex-wrap: wrap; gap: 28px 56px; align-items: center; justify-content: space-between">
+    <div style="flex: 1 1 420px; max-width: 620px">
+      <h2 style="margin: 0; font-size: 40px; line-height: 1.15; font-weight: 800">Klaar om zakelijke opslag te huren?</h2>
+      <p style="margin: 14px 0 0; font-size: 18px; line-height: 1.6; color: #E4DEEE">Kies een opslagruimte en ontvang je prijs. 24/7 beveiligde opslag, flexibel opzegbaar en 29 locaties door heel Nederland.</p>
+    </div>
+    <div style="flex: 1 1 380px; max-width: 480px; display: flex; flex-wrap: wrap; gap: 12px">
+      <label for="b-quick" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Locatie</label>
+      <select id="b-quick" class="fld" style="flex: 1 1 220px; width: auto">
+        <option value="">Kies een opslaglocatie</option>
+        <option value="Alkmaar">Alkmaar</option><option value="Almere">Almere</option><option value="Alphen aan den Rijn">Alphen aan den Rijn</option><option value="Amsterdam">Amsterdam</option><option value="Barendrecht">Barendrecht</option><option value="Bergen op Zoom">Bergen op Zoom</option><option value="Boxtel">Boxtel</option><option value="Breda">Breda</option><option value="Den Bosch">Den Bosch</option><option value="Den Haag">Den Haag</option><option value="Eindhoven Best">Eindhoven Best</option><option value="Goes">Goes</option><option value="Groningen">Groningen</option><option value="Heerlen">Heerlen</option><option value="Heerlen-Heerlerbaan">Heerlen-Heerlerbaan</option><option value="Hellevoetsluis">Hellevoetsluis</option><option value="Helmond">Helmond</option><option value="Helmond Kanaaldijk">Helmond Kanaaldijk</option><option value="Lelystad">Lelystad</option><option value="Nijmegen-Wijchen">Nijmegen-Wijchen</option><option value="Rijswijk">Rijswijk</option><option value="Roermond">Roermond</option><option value="Rotterdam Centrum">Rotterdam Centrum</option><option value="Rotterdam Zuid">Rotterdam Zuid</option><option value="Schiedam">Schiedam</option><option value="Sittard">Sittard</option><option value="Tilburg">Tilburg</option><option value="Utrecht">Utrecht</option><option value="Venlo">Venlo</option>
+      </select>
+      <button type="button" class="btn-g" data-action="quick" style="flex: 1 1 160px">Ontvang je prijs</button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer, home style -->
+<footer class="foot" style="background: #66B142; color: #fff">
+  <div style="max-width: 1252px; margin: 0 auto; padding: 56px 20px 40px; display: flex; flex-wrap: wrap; gap: 32px 56px">
+    <div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 12px; font-size: 17px">
+      <img src="assets/logo.png" alt="1BOX Self Storage" style="height: 80px; width: auto; align-self: flex-start; filter: brightness(0) invert(1)">
+      <a href="tel:0850161611" style="font-weight: 800">085-016 16 11</a>
+      <a href="mailto:info@1box.nl" style="font-weight: 800">info@1box.nl</a>
+      <b style="margin-top: 12px; font-size: 19px">Volg ons</b>
+      <span>Facebook · Instagram · LinkedIn</span>
+    </div>
+    <div style="flex: 3 1 480px">
+      <b style="font-size: 19px">Opslaglocaties</b>
+      <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 24px; font-size: 16px">
+        <a href="#">Alkmaar</a><a href="#">Almere</a><a href="#">Alphen aan den Rijn</a><a href="#">Amsterdam</a><a href="#">Barendrecht</a><a href="#">Bergen op Zoom</a><a href="#">Boxtel</a><a href="#">Breda</a><a href="#">Den Bosch</a><a href="#">Den Haag</a><a href="#">Eindhoven Best</a><a href="#">Goes</a><a href="#">Groningen</a><a href="#">Heerlen</a><a href="#">Heerlen-Heerlerbaan</a><a href="#">Hellevoetsluis</a><a href="#">Helmond</a><a href="#">Helmond Kanaaldijk</a><a href="#">Lelystad</a><a href="#">Nijmegen-Wijchen</a><a href="#">Rijswijk</a><a href="#">Roermond</a><a href="#">Rotterdam Centrum</a><a href="#">Rotterdam Zuid</a><a href="#">Schiedam</a><a href="#">Sittard</a><a href="#">Tilburg</a><a href="#">Utrecht</a><a href="#">Venlo</a>
+      </div>
+    </div>
+    <div style="flex: 1 1 180px; display: flex; flex-direction: column; gap: 10px; font-size: 16px">
+      <b style="font-size: 19px; margin-bottom: 4px">Hoe werkt het?</b>
+      <a href="#">Veilige opslag</a><a href="#">Self Storage</a><a href="#">Particulieren</a><a href="#">Zakelijk</a><a href="#">Veelgestelde vragen</a><a href="#">Verzekering</a><a href="#">Algemene voorwaarden</a>
+    </div>
+    <div style="flex: 1 1 160px; display: flex; flex-direction: column; gap: 10px; font-size: 16px">
+      <b style="font-size: 19px; margin-bottom: 4px">Contact</b>
+      <a href="#">Over 1BOX</a><a href="#">Klantenservice</a><a href="#">Vacatures</a><a href="#">Blog</a>
+    </div>
+  </div>
+  <div style="max-width: 1252px; margin: 0 auto; padding: 18px 20px 28px; border-top: 1px solid rgba(255,255,255,.4); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: 15px">
+    <span>© 2026 1BOX Self-Storage · 4,8/5 (2.852 reviews)</span>
+    <span><a href="#">Privacyverklaring</a> · <a href="#">Cookieverklaring</a></span>
+  </div>
+</footer>
+
+</div>
+<script src="form.js"></script>
+<script src="comments.js"></script>
+</body>
+</html>

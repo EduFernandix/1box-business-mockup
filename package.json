@@ -1,0 +1,5 @@
+{
+  "name": "1box-business-mockup",
+  "private": true,
+  "scripts": { "start": "node server.js" }
+}
