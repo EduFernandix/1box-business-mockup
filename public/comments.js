@@ -19,18 +19,20 @@
 
   // ---------- toolbar ----------
   const add = h('button', { type: 'button', class: 'cmx-add', 'aria-pressed': 'false', title: 'Add a comment (C)' });
-  add.innerHTML = ICON_P + '<span>Add comment</span>';
+  add.innerHTML = ICON_P + '<span><span class="cmx-lg">Add </span>comment</span>';
   const count = h('span', { class: 'cmx-badge', text: '0' });
-  const listBtn = h('button', { type: 'button', title: 'All comments' }); listBtn.innerHTML = ICON_C + '<span>Comments</span>'; listBtn.append(count);
+  const listBtn = h('button', { type: 'button', title: 'All comments' }); listBtn.innerHTML = ICON_C + '<span class="cmx-lg">Comments</span>'; listBtn.setAttribute('aria-label', 'All comments'); listBtn.append(count);
   const bar = h('nav', { class: 'cmx-bar', 'aria-label': 'Review' },
-    h('a', { href: '/', text: 'Overview' }),
-    h('a', { href: '/a', class: PAGE === 'a' ? 'on' : '', text: 'Variation A' }),
-    h('a', { href: '/b', class: PAGE === 'b' ? 'on' : '', text: 'Variation B' }),
+    h('a', { href: '/', class: 'cmx-ov', text: 'Overview' }),
+    h('a', { href: '/a', class: PAGE === 'a' ? 'on' : '', 'aria-label': 'Variation A' }, h('span', { class: 'cmx-lg', text: 'Variation ' }), 'A'),
+    h('a', { href: '/b', class: PAGE === 'b' ? 'on' : '', 'aria-label': 'Variation B' }, h('span', { class: 'cmx-lg', text: 'Variation ' }), 'B'),
     h('span', { class: 'cmx-sep', 'aria-hidden': 'true' }), add, listBtn);
   const layer = h('div', { class: 'cmx-layer' });
   const hover = h('div', { class: 'cmx-hover', hidden: true });
   const hint = h('div', { class: 'cmx-hint', hidden: true, text: 'Click anywhere on the page to leave a comment · Esc to stop' });
   document.body.append(layer, hover, hint, bar);
+
+  document.addEventListener('click', (e) => { const a = e.target.closest && e.target.closest('a[href="#"]'); if (a && !window.__commentMode) e.preventDefault(); });
 
   // ---------- sidebar ----------
   const list = h('div', { class: 'cmx-list' });
@@ -46,6 +48,7 @@
   function cssPath(el) {
     const parts = [];
     while (el && el.nodeType === 1 && el !== document.body) {
+      if (el.tagName === 'FONT') { el = el.parentNode; continue; }
       let sel = el.tagName.toLowerCase();
       if (el.id && /^[A-Za-z][\w-]*$/.test(el.id)) { parts.unshift('#' + el.id); break; }
       const sib = Array.from(el.parentNode.children).filter((c) => c.tagName === el.tagName);
@@ -81,7 +84,8 @@
     if (!window.__commentMode || isUI(e.target)) return;
     e.preventDefault(); e.stopPropagation();
     if (t === 'click') {
-      const el = e.target; const r = el.getBoundingClientRect();
+      let el = e.target; while (el.parentElement && el.tagName === 'FONT') el = el.parentElement;
+      const r = el.getBoundingClientRect();
       const anchor = { sel: cssPath(el), fx: r.width ? (e.clientX - r.left) / r.width : 0, fy: r.height ? (e.clientY - r.top) / r.height : 0, px: e.pageX / document.documentElement.scrollWidth, py: e.pageY, vw: innerWidth };
       setMode(false); compose(anchor, e.pageX, e.pageY);
     }
@@ -169,7 +173,8 @@
     }
     list.textContent = '';
     const shown = ts.filter(([, c]) => showResolved || !c.resolved);
-    if (!shown.length) list.append(h('div', { class: 'cmx-empty', text: 'No comments on this page yet. Press “Add comment” and click anywhere on the page.' }));
+    const nres = ts.length - open.length;
+    if (!shown.length) list.append(h('div', { class: 'cmx-empty', text: ts.length ? 'No open comments. ' + nres + ' resolved — tick “Show resolved” to see them.' : 'No comments on this page yet. Press “Add comment” and click anywhere on the page.' }));
     for (const [id, c] of shown) {
       const nrep = Object.values(comments).filter((r) => r.parent === id).length;
       list.append(h('button', { type: 'button', class: 'cmx-item' + (c.resolved ? ' resolved' : ''), onclick: () => { const p = where(c.anchor); scrollTo({ top: Math.max(0, p.y - innerHeight / 3), behavior: 'smooth' }); setTimeout(() => openThread(id), 350); } },

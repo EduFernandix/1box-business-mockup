@@ -58,4 +58,4 @@ body.cmx-mode,body.cmx-mode *{cursor:crosshair!important}
 .cmx-item .t{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap}
 .cmx-empty{padding:24px 16px;color:#6B7280}
 .cmx-toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);z-index:2147483003;background:#1E0B38;color:#fff;font:700 14px Mulish,sans-serif;padding:10px 16px;border-radius:8px}
-@media (max-width:600px){.cmx-bar{bottom:10px;font-size:13px}.cmx-bar a,.cmx-bar button{padding:0 10px}}
+@media (max-width:600px){.cmx-bar{bottom:10px;font-size:14px;flex-wrap:nowrap;gap:2px;padding:4px}.cmx-bar a,.cmx-bar button{padding:0 12px;min-height:44px}.cmx-bar .cmx-lg,.cmx-bar .cmx-ov{display:none}.cmx-pop{width:300px}.cmx-hint{font-size:13px;white-space:normal;width:max-content;max-width:calc(100vw - 24px);text-align:center}}

@@ -50,13 +50,14 @@ details summary{list-style:none;cursor:pointer}
 details summary::-webkit-details-marker{display:none}
 details[open] .chev{transform:rotate(180deg)}
 </style>
+<link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="comments.css">
 </head>
 <body data-page="a">
 <div style="font-family: Mulish, ui-sans-serif, system-ui, sans-serif; color: #1E0B38; background: #F3F5F5; width: 100%">
 
 <!-- Top bar -->
-<div style="background: #EDF0F0; font-size: 14px">
+<div class="topbar" style="background: #EDF0F0; font-size: 14px">
   <div style="max-width: 1252px; margin: 0 auto; padding: 10px 20px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between">
     <div style="display: flex; flex-wrap: wrap; gap: 6px 22px; color: #3B3150">
       <span style="display: inline-flex; gap: 6px; align-items: center"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>365 dagen per jaar open, 06:00–23:00</span>
@@ -73,9 +74,10 @@ details[open] .chev{transform:rotate(180deg)}
 </div>
 
 <!-- Header -->
-<header style="background: #fff">
+<header class="site-header" style="background: #fff">
   <div style="max-width: 1252px; margin: 0 auto; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between">
     <img src="assets/logo.png" alt="1BOX Self Storage" style="height: 64px; width: auto">
+    <button type="button" class="burger" aria-label="Menu"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1E0B38" stroke-width="2.4" stroke-linecap="round"></path></svg></button>
     <nav class="nav" aria-label="Hoofdmenu" style="display: flex; flex-wrap: wrap; gap: 8px 30px; align-items: center">
       <a href="#">Opslaglocaties ▾</a>
       <a href="#">Particuliere opslag ▾</a>
@@ -159,7 +161,7 @@ details[open] .chev{transform:rotate(180deg)}
 
 <!-- Trust strip, as on the home -->
 <section style="background: #fff">
-  <div style="max-width: 1252px; margin: 0 auto; padding: 32px 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 24px; text-align: center">
+  <div style="max-width: 1252px; margin: 0 auto; padding: 32px 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 24px; text-align: center">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
       <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 16 24 6l20 10v26h-6V20H10v22H4Z" fill="#66B142"></path><path d="M12 22h24v20H24V32H12Z" fill="#C9E5B9"></path></svg>
       <b style="font-size: 18px; font-weight: 800">365 dagen toegang</b><span>06:00 – 23:00 uur</span>
@@ -187,7 +189,7 @@ details[open] .chev{transform:rotate(180deg)}
 <section style="max-width: 1252px; margin: 0 auto; padding: 72px 20px 32px">
   <h2 style="margin: 0; font-size: 40px; line-height: 1.15; font-weight: 800">Vind wat je nodig hebt</h2>
   <p style="margin: 12px 0 32px; font-size: 18px; line-height: 1.6; max-width: 720px">Bij 1BOX Self Storage bieden wij verschillende soorten opslagruimtes voor bedrijven. Klik op een optie en reserveer direct.</p>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 16px">
     <button type="button" class="card-opt" data-kind="Archief">
       <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="8" width="36" height="10" rx="2" fill="#66B142"></rect><rect x="9" y="20" width="30" height="20" rx="2" fill="#C9E5B9"></rect><rect x="19" y="25" width="10" height="4" rx="2" fill="#66B142"></rect></svg>
       <span style="font-size: 20px; font-weight: 800">Archiefopslag</span>
@@ -247,7 +249,7 @@ details[open] .chev{transform:rotate(180deg)}
 <section style="background: #fff; margin-top: 56px">
   <div style="max-width: 1252px; margin: 0 auto; padding: 72px 20px">
     <h2 style="margin: 0 0 40px; font-size: 40px; line-height: 1.15; font-weight: 800">Huur opslag in 3 simpele stappen</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 40px">
       <div style="display: flex; flex-direction: column; gap: 14px; padding: 0 24px 0 0">
         <svg width="96" height="96" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 16 24 6l20 10v26h-6V20H10v22H4Z" fill="#66B142"></path><path d="M12 22h24v20H24V32H12Z" fill="#C9E5B9"></path></svg>
         <span style="font-size: 15px; font-weight: 800; color: #3E7F22">STAP 1</span>
@@ -280,7 +282,7 @@ details[open] .chev{transform:rotate(180deg)}
     <p style="margin: 0; font-size: 18px; line-height: 1.6">De partner voor professionele en flexibele opslagruimtes, met 29 locaties door heel Nederland.</p>
     <a class="btn-g" href="#reserveer">Nu reserveren</a>
   </div>
-  <div style="flex: 999 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 36px 40px">
+  <div style="flex: 999 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 36px 40px">
     <div style="display: flex; gap: 20px">
       <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><circle cx="24" cy="24" r="20" fill="#C9E5B9"></circle><path d="M24 12v13l8 6" stroke="#66B142" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       <div><h3 style="margin: 0 0 8px; font-size: 22px; font-weight: 800">Ruime toegangstijden</h3><p style="margin: 0; font-size: 16px; line-height: 1.6">Je hebt dagelijks toegang van 06:00 tot 23:00 uur, 365 dagen per jaar. Met de app open je de poort en jouw opslagruimte.</p></div>
@@ -313,7 +315,7 @@ details[open] .chev{transform:rotate(180deg)}
   <div style="max-width: 1252px; margin: 0 auto; padding: 72px 20px">
     <h2 style="margin: 0; font-size: 40px; line-height: 1.15; font-weight: 800">Wat onze klanten zeggen</h2>
     <p style="margin: 10px 0 32px; font-size: 17px"><span style="color: #E09600">★★★★★</span> 4,8/5 <a href="#">(2.852 reviews)</a></p>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px">
       <figure style="margin: 0; background: #F3F5F5; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
         <span style="color: #E09600; font-size: 18px" aria-label="5 sterren">★★★★★</span>
         <blockquote style="margin: 0; font-size: 17px; line-height: 1.6">Ik had met spoed opslagruimte nodig en ben dankzij de snelle en goede hulp op afstand direct geholpen. Al de volgende dag kon ik terecht en mijn spullen veilig opslaan.</blockquote>
@@ -466,7 +468,7 @@ details[open] .chev{transform:rotate(180deg)}
     </div>
     <div style="flex: 3 1 480px">
       <b style="font-size: 19px">Opslaglocaties</b>
-      <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 24px; font-size: 16px">
+      <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 10px 24px; font-size: 16px">
         <a href="#">Alkmaar</a><a href="#">Almere</a><a href="#">Alphen aan den Rijn</a><a href="#">Amsterdam</a><a href="#">Barendrecht</a><a href="#">Bergen op Zoom</a><a href="#">Boxtel</a><a href="#">Breda</a><a href="#">Den Bosch</a><a href="#">Den Haag</a><a href="#">Eindhoven Best</a><a href="#">Goes</a><a href="#">Groningen</a><a href="#">Heerlen</a><a href="#">Heerlen-Heerlerbaan</a><a href="#">Hellevoetsluis</a><a href="#">Helmond</a><a href="#">Helmond Kanaaldijk</a><a href="#">Lelystad</a><a href="#">Nijmegen-Wijchen</a><a href="#">Rijswijk</a><a href="#">Roermond</a><a href="#">Rotterdam Centrum</a><a href="#">Rotterdam Zuid</a><a href="#">Schiedam</a><a href="#">Sittard</a><a href="#">Tilburg</a><a href="#">Utrecht</a><a href="#">Venlo</a>
       </div>
     </div>

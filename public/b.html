@@ -54,13 +54,14 @@ details summary{list-style:none;cursor:pointer}
 details summary::-webkit-details-marker{display:none}
 details[open] .pm{transform:rotate(45deg)}
 </style>
+<link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="comments.css">
 </head>
 <body data-page="b">
 <div style="font-family: Mulish, ui-sans-serif, system-ui, sans-serif; color: #1E0B38; background: #fff; width: 100%">
 
 <!-- Top bar -->
-<div style="background: #EDF0F0; font-size: 14px">
+<div class="topbar" style="background: #EDF0F0; font-size: 14px">
   <div style="max-width: 1252px; margin: 0 auto; padding: 10px 20px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between">
     <div style="display: flex; flex-wrap: wrap; gap: 6px 22px; color: #3B3150">
       <span style="display: inline-flex; gap: 6px; align-items: center"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Altijd de beste prijs</span>
@@ -77,9 +78,10 @@ details[open] .pm{transform:rotate(45deg)}
 </div>
 
 <!-- Header -->
-<header style="background: #fff; border-bottom: 1px solid #E4E8E8">
+<header class="site-header" style="background: #fff; border-bottom: 1px solid #E4E8E8">
   <div style="max-width: 1252px; margin: 0 auto; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between">
     <img src="assets/logo.png" alt="1BOX Self Storage" style="height: 64px; width: auto">
+    <button type="button" class="burger" aria-label="Menu"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1E0B38" stroke-width="2.4" stroke-linecap="round"></path></svg></button>
     <nav class="nav" aria-label="Hoofdmenu" style="display: flex; flex-wrap: wrap; gap: 8px 30px; align-items: center">
       <a href="#">Opslaglocaties ▾</a>
       <a href="#">Particuliere opslag ▾</a>
@@ -99,7 +101,7 @@ details[open] .pm{transform:rotate(45deg)}
       <span style="display: inline-block; background: #E3F1DA; color: #2F6A17; font-weight: 800; font-size: 14px; padding: 6px 12px; border-radius: 999px">Voor bedrijven, zzp'ers en webshops</span>
       <h1 style="margin: 16px 0 0; font-size: 50px; line-height: 1.08; font-weight: 800">Zakelijke opslag.<br><span style="color: #3E7F22">Maak ruimte voor jouw onderneming.</span></h1>
       <p style="margin: 22px 0 0; font-size: 19px; line-height: 1.6; max-width: 560px">Ruimtegebrek in jouw kantoor of bedrijfspand? Ontdek de mogelijkheden van zakelijke opslag bij 1BOX: de partner voor professionele en flexibele opslagruimtes.</p>
-      <ul style="list-style: none; margin: 26px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px 24px; font-size: 16px; font-weight: 700">
+      <ul style="list-style: none; margin: 26px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 12px 24px; font-size: 16px; font-weight: 700">
         <li style="display: flex; gap: 10px; align-items: flex-start"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="12" fill="#66B142"></circle><path d="m7 12 3.5 3.5L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>365 dagen open, 06:00–23:00</li>
         <li style="display: flex; gap: 10px; align-items: flex-start"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="12" fill="#66B142"></circle><path d="m7 12 3.5 3.5L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Verzekerde opslag</li>
         <li style="display: flex; gap: 10px; align-items: flex-start"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="12" fill="#66B142"></circle><path d="m7 12 3.5 3.5L17 9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>Flexibel, vanaf één maand</li>
@@ -227,7 +229,7 @@ details[open] .pm{transform:rotate(45deg)}
 <section style="max-width: 1252px; margin: 0 auto; padding: 0 20px">
   <div style="background: #1E0B38; color: #fff; border-radius: 16px; padding: 56px 48px">
     <h2 style="margin: 0 0 40px; font-size: 40px; line-height: 1.15; font-weight: 800">Waarom kiezen voor 1BOX?</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 36px 40px">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 36px 40px">
       <div style="display: flex; flex-direction: column; gap: 12px">
         <span style="width: 56px; height: 56px; border-radius: 12px; background: #fff; display: grid; place-items: center"><svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#C9E5B9"></circle><path d="M24 12v13l8 6" stroke="#66B142" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
         <h3 style="margin: 0; font-size: 21px; font-weight: 800">Ruime toegangstijden</h3>
@@ -266,7 +268,7 @@ details[open] .pm{transform:rotate(45deg)}
 <!-- 3 numbered steps -->
 <section style="max-width: 1252px; margin: 0 auto; padding: 80px 20px">
   <h2 style="margin: 0 0 36px; font-size: 40px; line-height: 1.15; font-weight: 800">Huur opslag in 3 simpele stappen</h2>
-  <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px">
+  <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 24px">
     <li style="background: #F3F5F5; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
       <span style="width: 48px; height: 48px; border-radius: 50%; background: #66B142; color: #fff; display: grid; place-items: center; font-size: 22px; font-weight: 800">1</span>
       <h3 style="margin: 0; font-size: 22px; font-weight: 800">Kies een opslagruimte en ontvang een prijs</h3>
@@ -289,7 +291,7 @@ details[open] .pm{transform:rotate(45deg)}
 <section style="background: #F3F5F5">
   <div style="max-width: 1252px; margin: 0 auto; padding: 80px 20px">
     <h2 style="margin: 0 0 32px; font-size: 40px; line-height: 1.15; font-weight: 800">Veelgestelde vragen</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 12px 24px; align-items: start">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 12px 24px; align-items: start">
       <details style="background: #fff; border-radius: 12px; padding: 0 22px">
         <summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 68px; font-size: 18px; font-weight: 800">Welke zakelijke goederen kan ik opslaan?<svg class="pm" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 5v14M5 12h14" stroke="#66B142" stroke-width="3" stroke-linecap="round"></path></svg></summary>
         <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.65">Voorraad, handelsgoederen, gereedschap, beursmateriaal, archieven, kantoorinventaris en apparatuur. Niet toegestaan: gevaarlijke stoffen, brandbare of explosieve materialen, bederfelijke goederen en illegale producten.</p>
@@ -327,7 +329,7 @@ details[open] .pm{transform:rotate(45deg)}
     </div>
     <a href="#" style="font-weight: 800; font-size: 17px">Bekijk alle opslaglocaties op de kaart ›</a>
   </div>
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px">
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); gap: 10px">
     
       <button type="button" class="loc" data-loc="Alkmaar">Alkmaar<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="#66B142" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
     
@@ -420,7 +422,7 @@ details[open] .pm{transform:rotate(45deg)}
     </div>
     <div style="flex: 3 1 480px">
       <b style="font-size: 19px">Opslaglocaties</b>
-      <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 24px; font-size: 16px">
+      <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 10px 24px; font-size: 16px">
         <a href="#">Alkmaar</a><a href="#">Almere</a><a href="#">Alphen aan den Rijn</a><a href="#">Amsterdam</a><a href="#">Barendrecht</a><a href="#">Bergen op Zoom</a><a href="#">Boxtel</a><a href="#">Breda</a><a href="#">Den Bosch</a><a href="#">Den Haag</a><a href="#">Eindhoven Best</a><a href="#">Goes</a><a href="#">Groningen</a><a href="#">Heerlen</a><a href="#">Heerlen-Heerlerbaan</a><a href="#">Hellevoetsluis</a><a href="#">Helmond</a><a href="#">Helmond Kanaaldijk</a><a href="#">Lelystad</a><a href="#">Nijmegen-Wijchen</a><a href="#">Rijswijk</a><a href="#">Roermond</a><a href="#">Rotterdam Centrum</a><a href="#">Rotterdam Zuid</a><a href="#">Schiedam</a><a href="#">Sittard</a><a href="#">Tilburg</a><a href="#">Utrecht</a><a href="#">Venlo</a>
       </div>
     </div>
