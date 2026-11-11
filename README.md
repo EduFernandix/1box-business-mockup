@@ -10,3 +10,5 @@ served with a comment layer so reviewers can pin feedback anywhere on the page.
 - The quote form is a mockup and sends nothing.
 
 Run locally: `DATA_DIR=./data node server.js`
+
+Test: `node test/e2e.js https://<site>` (live, cleans up after itself) or `node test/e2e.js http://localhost:4611 --local /tmp/e2e-data` (also tests restart and rate limit). Needs puppeteer from the dashboard repo.
